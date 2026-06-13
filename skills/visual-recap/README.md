@@ -1,6 +1,6 @@
 # /visual-recap
 
-Turn an existing change into a scannable visual review surface.
+Turn an existing change into an interactive visual review surface.
 
 `/visual-recap` is the reverse of `/visual-plan`: instead of planning a future
 change, it summarizes a diff, branch, commit, or PR after the work exists. The
@@ -19,7 +19,7 @@ notes.
 ## What It Does
 
 - Reads the actual changed files and diff.
-- Publishes an Agent-Native Plan recap with file maps, diagrams, visual schema
+- Publishes an interactive recap with file maps, diagrams, visual schema
   maps, API diffs, annotated diffs, UI state summaries, and focused key changes.
 - Keeps recaps substantial enough for real review without dumping every line.
 - Makes large changes consumable before a reviewer opens raw GitHub diff view.
@@ -49,5 +49,5 @@ can generate a visual recap from a pull request diff.
 npx @agent-native/skills@latest add --skill visual-recap --with-github-action
 ```
 
-The skill expects the Agent-Native Plan MCP connector to be available when it is
-used, unless local-files privacy mode is explicitly enabled.
+The skill expects the Plan MCP connector to be available when it is used, unless
+local-files privacy mode is explicitly enabled.

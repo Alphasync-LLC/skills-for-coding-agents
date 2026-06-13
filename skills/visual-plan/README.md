@@ -1,6 +1,6 @@
 # /visual-plan
 
-Turn risky implementation plans into scannable visual review surfaces.
+Turn ordinary implementation plans into rich interactive visual review surfaces.
 
 `/visual-plan` turns the plan an agent would normally write in chat into a
 human-optimized MDX document. Instead of a long wall of prose, reviewers get
@@ -19,7 +19,7 @@ visual schema maps, open questions, and comments.
   design direction, or visual intake.
 - Uses MDX and custom components for diagrams, UI flows, API specs, schema maps,
   diffs, code annotations, and reviewer questions.
-- Publishes the result as an Agent-Native Plan instead of inline chat Markdown.
+- Publishes the result as an interactive review document instead of inline chat Markdown.
 - Keeps the plan as the approval gate before source edits begin.
 
 ## When To Use It
@@ -47,5 +47,4 @@ actual codebase.
 npx @agent-native/skills@latest add --skill visual-plan
 ```
 
-The skill expects the Agent-Native Plan MCP connector to be available when it is
-used.
+The skill expects the Plan MCP connector to be available when it is used.

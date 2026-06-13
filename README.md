@@ -54,9 +54,8 @@ self-contained plan.
 
 ### [`/visual-plan`](skills/visual-plan/README.md)
 
-Turn risky plans into human-optimized MDX documents with custom visual blocks:
-diagrams, wireframes, prototypes, visual schema maps, OpenAPI-style API specs,
-annotated code, open questions, and review comments.
+Turn ordinary text plans into rich interactive visual plans with diagrams, file
+maps, annotated code, open questions, and UI/prototype review when useful.
 
 Solves for plans that are too important to bury in chat. The output is
 scannable, commentable, and intuitive enough for a human to approve before code
@@ -68,9 +67,9 @@ changes start.
 
 ### [`/visual-recap`](skills/visual-recap/README.md)
 
-Turn a branch, commit, or PR diff into a human-optimized visual recap with MDX
-and custom components: annotated diffs, diagrams, API diffs, visual schema maps,
-file maps, and UI state summaries.
+Turn a branch, commit, or PR diff into an interactive visual recap with
+annotated diffs, diagrams, API/schema summaries, file maps, UI state summaries,
+and focused review notes.
 
 Solves for diffs that hide the shape of the change. Reviewers can understand
 contracts, architecture moves, schema changes, and UI impact before diving into
