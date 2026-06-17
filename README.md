@@ -7,13 +7,14 @@ matters: orchestration, review, planning, validation, docs discipline, and clear
 communication. They are not a giant process framework. Install the pieces you
 want, adapt them to your project, and let the model keep room to think.
 
-### Quick install all skills
+### Quick install recommended skills
 
 ```sh
 npx @agent-native/skills@latest add
 ```
 
-See the [full CLI docs below](#install).
+The interactive picker puts `/visual-plan` and `/visual-recap` first and selects
+only those by default. See the [full CLI docs below](#install).
 
 ## Skills
 
@@ -55,6 +56,24 @@ npx @agent-native/skills@latest add
 ```
 
 ![Example of a visual plan posted to a PR](https://cdn.builder.io/api/v1/image/assets%2FYJIGb4i01jvw0SRdL5Bt%2Fcf9bac396cf24a4ba976fc331af6fc5d)
+
+### [`/agent-watchdog`](skills/agent-watchdog/README.md)
+
+Audit another agent's work from a Codex session, Claude Code transcript, PR,
+branch, or run summary.
+
+Solves for cross-agent handoffs: watch until done, reconstruct what was asked,
+check what actually changed and verified, report gaps, and optionally make
+narrow fixes.
+
+### [`/plan-arbiter`](skills/plan-arbiter/README.md)
+
+Compare competing agent plans and choose one executable direction.
+
+Solves for multi-agent planning loops where Codex, Claude Code, or other agents
+produce separate strategies. The output is a decision memo with the winning or
+hybrid plan, rejected alternatives, verification gates, and executor
+recommendation.
 
 ### [`/efficient-fable`](skills/efficient-fable/README.md)
 
@@ -129,6 +148,9 @@ Run the installer:
 ```sh
 npx @agent-native/skills@latest add
 ```
+
+The picker shows the full catalog, with `/visual-plan` and `/visual-recap` at
+the top and preselected by default. Toggle any additional skills you want.
 
 The installer walks you through the choices:
 
