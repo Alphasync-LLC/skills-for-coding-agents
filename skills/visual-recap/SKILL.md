@@ -32,18 +32,25 @@ In local-files mode:
   The existing `npx @agent-native/core@latest recap collect-diff`, `scan`, and
   `build-prompt --local-files` helpers are safe to use because they operate on
   local files and do not write to the Plan database.
+- Fetch/read the block catalog before writing structured MDX. Use
+  `npx @agent-native/core@latest plan blocks --out plan-blocks.md` when the Plan
+  MCP connector is not registered; it calls the public no-auth
+  `get-plan-blocks` route and sends no recap content. If network access is
+  unavailable, use the bundled references and validate with
+  `plan local preview`.
 - Write the recap as a local MDX folder under `plans/<slug>/`: `plan.mdx`,
   optional `canvas.mdx`, optional `prototype.mdx`, and optional
   `.plan-state.json`. Set `kind: "recap"` and `localOnly: true` in
   frontmatter/state when authoring the source.
-- Run `npx @agent-native/core@latest plan local preview --dir plans/<slug> --kind recap` after
-  writing or updating the folder. Report the returned local URL or the
+- Run `npx @agent-native/core@latest plan local preview --dir plans/<slug> --kind recap --open`
+  after writing or updating the folder. Report the returned local URL or the
   `/local-plans/<slug>` route if the local Plan app is running with the same
   `PLAN_LOCAL_DIR`.
 - Do **not** call `create-visual-recap`, `create-visual-plan`,
   `import-visual-plan-source`, `update-visual-plan`,
   `patch-visual-plan-source`, `get-plan-feedback`, `export-visual-plan`,
-  `set-resource-visibility`, or any hosted Plan tool for that recap.
+  `set-resource-visibility`, or any hosted Plan tool for that recap except the
+  schema-only block catalog lookup above.
 - Treat review feedback as file or chat feedback: update the MDX files directly,
   rerun the local preview command, and summarize the new local URL/path.
   Hosted comments, sharing, screenshots, usage attachment, and PR sticky comment
@@ -406,12 +413,19 @@ memorized tags — they drift and silently produce a wrong tag (`ApiEndpoint`
 instead of `Endpoint`, `JsonExplorer` instead of `Json`, `Tabs` instead of
 `TabsBlock`) that errors on import.
 
-**Before writing any structured plan content, call `get-plan-blocks` on the Plan
-MCP connector (`plan` or legacy `agent-native-plans`).** It returns the
-authoritative, always-current block
-vocabulary generated live from the app's own block registry — the same config
-the renderer and MDX round-trip use — so it can never be stale even if this
-SKILL.md is an old installed copy:
+**Before writing any structured plan content, fetch/read the block catalog.** In
+hosted or self-hosted mode, call `get-plan-blocks` on the Plan MCP connector
+(`plan` or legacy `agent-native-plans`). In local-files mode, or when the skill
+was installed as plain text and no MCP tools are registered, run
+`npx @agent-native/core@latest plan blocks --out plan-blocks.md` and read that
+file first. The CLI command calls the public no-auth `get-plan-blocks` route and
+sends no plan/recap content. If network access is unavailable, use the bundled
+references and validate with `plan local preview`.
+
+The catalog returns the authoritative, always-current block vocabulary generated
+live from the app's own block registry — the same config the renderer and MDX
+round-trip use — so it can never be stale even if this SKILL.md is an old
+installed copy:
 
 - `get-plan-blocks` (default `format: "reference"`) → a compact table of every
   block's runtime `type`, exact MDX `<Tag>`, placement, and key data fields.
@@ -434,6 +448,10 @@ A few recap-specific authoring rules the registry table cannot encode:
   shared optional `summary` / `editable` envelope; give a block a heading by
   placing a `rich-text` block with a Markdown `###` heading directly above it
   (blocks no longer take a `title`).
+- Every capitalized block component must be self-closing (`<RichText ... />`) or
+  explicitly closed around children (`<RichText ...>...</RichText>`). Never
+  leave a bare opening tag like `<RichText ...>` in a paragraph; MDX treats it
+  as unclosed JSX and import fails before the recap can render.
 - `Endpoint`: prose `description` is the MDX **children** (body between the
   tags), not an attribute; for a WebSocket upgrade use `method="GET"`. Each
   request/response `example` is a JSON **string** (the renderer parses it into

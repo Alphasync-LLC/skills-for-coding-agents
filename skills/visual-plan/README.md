@@ -17,7 +17,9 @@ changes start.
 </picture>
 
 Visual plans are MDX, customizable with your own components, and viewed with the
-free, open-source [Agent-Native plans app](https://www.agent-native.com/docs/template-plan).
+[Agent-Native plans app](https://www.agent-native.com/docs/template-plan). The
+hosted app is 100% free and open source; local-files mode writes
+`plans/<name>/plan.mdx` in your repo and opens a local preview with no sharing.
 [Source here](https://github.com/BuilderIO/agent-native/).
 
 ## What It Does
@@ -76,8 +78,12 @@ agent writes MDX files, then opens the local Plan app at `/local-plans/<slug>`.
 npx @agent-native/skills@latest add --skill visual-plan
 ```
 
-The installer asks which mode to use. To force the fully local mode directly:
+The interactive installer asks whether to use hosted Plans or local files. To
+force the no-sharing local path:
 
 ```sh
 npx @agent-native/skills@latest add --skill visual-plan --mode local-files
 ```
+
+The skill expects the [Plan MCP connector](https://www.agent-native.com/docs/template-plan)
+to be available when hosted mode is used.
